@@ -30,4 +30,12 @@ app.get('/api/environmentalcommitments/:id', function (req, res){
   })
 });
 
-app.listen(port, () => console.log(`listening at http://localhost:${port}`))
+function sum(a, b) {
+  return a + b;
+}
+module.exports = sum;
+
+app.listen(port, () =>{
+
+  //console.log(`listening at http://localhost:${port}`)
+})
