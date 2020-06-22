@@ -5,6 +5,7 @@
   "author": "",
   "license": "",
   "scripts": {
+    "test":"jest --detectOpenHandles",
     "start": "nodemon server/index.js",
     "seed:db": "node server/database/seed.js"
   },
@@ -12,6 +13,7 @@
     "axios": "^0.19.2",
     "express": "^4.17.1",
     "faker": "^4.1.0",
+    "jest": "^26.0.1",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
