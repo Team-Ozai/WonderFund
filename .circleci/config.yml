@@ -15,8 +15,8 @@ jobs:
         environment:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: kstart
-          MYSQL_USER: user
-          MYSQL_PASSWORD: password
+          MYSQL_USER: root
+          MYSQL_PASSWORD: ''
     # Here are the steps to run in circle CI
     steps:
       # Checkout our github repo code
