@@ -36,7 +36,7 @@ jobs:
       # Be sure to use 'ci:<testNameHere>' - if circle-ci does not see the 'ci:' prefix, it will not fail if the tests fail
       - run:
           name: Run Server Test Suite
-          command: npm run ci:test
+          command: npm run test
 # This is some info for circleci - you can omit this if needed. It's used when you have multiple jobs to process, we only have one but
 # I've put it here anyway
 workflows:
