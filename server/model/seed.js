@@ -12,23 +12,23 @@ gifAPICall = function(offSetAmount){
   var offSet = "&offset=" + offSetAmount;
   var apiUrl =  api + limit + query + rating + apiKey + offSet;
 
- return new Promise(function(resolve, reject){
-  axios({
-      method: 'get',
-      url: apiUrl.toString(),
-    })
-      .then(function (response) {
-        let results = [];
-        let dataSet;
-        let saveUrl = '';
-        for (let i = 0; i < response.data.data.length; i++){
-          dataSet = response.data.data[i];
-          saveUrl = "http://i." + dataSet.images.original.webp.slice(15)
-          results.push(saveUrl)
-        }
-        resolve(results)
+  return new Promise(function(resolve, reject){
+    axios({
+        method: 'get',
+        url: apiUrl.toString(),
+      })
+        .then(function (response) {
+          let results = [];
+          let dataSet;
+          let saveUrl = '';
+          for (let i = 0; i < response.data.data.length; i++){
+            dataSet = response.data.data[i];
+            saveUrl = "http://i." + dataSet.images.original.webp.slice(15)
+            results.push(saveUrl)
+          }
+          resolve(results)
+      });
     });
-  });
 }
 
 //Recursive function to get 100 gifs
@@ -44,26 +44,27 @@ const getGif = function(offset = 0, result=[]){
     })
 }
 
-//Seed 3 tables - Story, RiskAndChallenges, and  EnvironmentalCommitments
-Promise.resolve("done")
-  .then(function(){
-    return getGif()
-  })
-  .then(function(data){
-    for ( let i = 0; i < data.length; i++){
-      db.Story.create({ title: faker.lorem.words(),
-                        gif: data[i],
-                        text:faker.lorem.paragraph()
-                      })
-        .then(function(data){
-        })
-        .catch(function(err){
-        })
+const addStories = function(gifData, connect){
+  return new Promise((resolve, reject)=>{
+    for ( let i = 0; i < gifData.length; i++){
+      connect.models.Story.create({
+        title: faker.lorem.words(),
+        gif: gifData[i],
+        text:faker.lorem.paragraph()
+      })
+      .then(function(data){
+      })
+      .catch(function(err){
+      })
     }
+    resolve("done")
   })
-  .then(function(data){
+}
+
+const addRisksAndChallenges = function(connect){
+  return new Promise((resolve, reject)=>{
     for (let i = 0; i < 100; i++){
-      db.RiskAndChallenges.create({
+      connect.models.RisksAndChallenges.create({
         title: faker.lorem.words(),
         text:faker.lorem.paragraph()
       })
@@ -72,10 +73,14 @@ Promise.resolve("done")
       .catch(function(err){
       })
     }
+    resolve("done")
   })
-  .then(function(data){
-    for (let i = 0; i < 100; i++){
-      db.EnvironmentalCommitments.create({
+}
+
+const addEnvironmentalCommitments = function(connect){
+  return new Promise((resolve, reject)=>{
+    for ( let i = 0; i < 100; i++){
+      connect.models.EnvironmentalCommitments.create({
         title: faker.lorem.words(),
         text:faker.lorem.paragraph()
       })
@@ -84,4 +89,17 @@ Promise.resolve("done")
       .catch(function(err){
       })
     }
+    resolve("done");
   })
+}
+
+//Seed 3 tables - Story, RisksAndChallenges, and  EnvironmentalCommitments
+async function getData(){
+  var gifData = await getGif();
+  const connect = await db.Connection();
+  var addRisksAndChallengesEntries = await addRisksAndChallenges(connect);
+  var addEnvironmentalCommitmentsEntries = await addEnvironmentalCommitments(connect);
+  var addStoryEntries = await addStories(gifData, connect);
+}
+
+getData()

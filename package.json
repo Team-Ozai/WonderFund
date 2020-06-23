@@ -5,9 +5,9 @@
   "author": "",
   "license": "",
   "scripts": {
-    "test":"jest --detectOpenHandles",
+    "test":"jest --detectOpenHandles --forceExit --runInBand",
     "start": "nodemon server/index.js",
-    "seed:db": "node server/database/seed.js"
+    "seed:db": "node server/model/seed.js"
   },
   "dependencies": {
     "axios": "^0.19.2",

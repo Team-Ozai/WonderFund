@@ -1,7 +1,8 @@
 const db = require('../model/database.js')
 
-getStoryFromID = function(value){
-  return db.Story.findOne({ where: {id: value }})
+getStoryFromID = async function(value){
+  const connect = await db.Connection();
+  return connect.models.Story.findOne({ where: {id: value }})
     .then(function(data){
       return data.dataValues
     })
@@ -10,8 +11,9 @@ getStoryFromID = function(value){
     })
 };
 
-getRisksAndChallengesFromID = function(value){
-  return db.RiskAndChallenges.findOne({ where: {id: value }})
+getRisksAndChallengesFromID = async function(value){
+  const connect = await db.Connection();
+  return connect.models.RisksAndChallenges.findOne({ where: {id: value }})
   .then(function(data){
     return data.dataValues
   })
@@ -20,8 +22,9 @@ getRisksAndChallengesFromID = function(value){
   })
 }
 
-getEnvironmentalCommitmentsFromID = function(value){
-  return db.EnvironmentalCommitments.findOne({ where: {id: value }})
+getEnvironmentalCommitmentsFromID = async function(value){
+  const connect = await db.Connection();
+  return connect.models.EnvironmentalCommitments.findOne({ where: {id: value }})
   .then(function(data){
     return data.dataValues
   })
