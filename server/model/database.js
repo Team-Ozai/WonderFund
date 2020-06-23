@@ -1,60 +1,81 @@
+const mysql = require('mysql2/promise');
 const { Sequelize, DataTypes, Model } = require('sequelize');
 
-const sequelize = new Sequelize('campaign', 'root', null, {
-  host: 'localhost',
-  dialect: 'mysql'
-});
+const createConnection = ()=>{
+  return new Promise ((resolve, reject) =>{
+    mysql
+      .createConnection({
+        user     : 'root',
+        password : ''
+      })
+      .then((connection) => {
+        connection.query('CREATE DATABASE IF NOT EXISTS campaign')
+        .then(() => {
 
-class Story extends Model {}
-class RiskAndChallenges extends Model {}
-class EnvironmentalCommitments extends Model {}
+          const sequelize = new Sequelize('campaign', 'root', null, {
+            host: 'localhost',
+            dialect: 'mysql'
+          });
 
-Story.init({
-  title: {
-    type: DataTypes.TEXT
-  },
-  gif: {
-    type: DataTypes.TEXT
-  },
-  text: {
-    type: DataTypes.TEXT
-  }
-}, {
-  sequelize,
-  modelName: 'Story',
-  freezeTableName: true,
-});
+          sequelize
+            .authenticate()
+            .then( () => {
 
-RiskAndChallenges.init({
-  title: {
-    type: DataTypes.TEXT
-  },
-  text: {
-    type: DataTypes.TEXT
-  }
-}, {
-  sequelize,
-  modelName: 'RiskAndChallenges',
-  freezeTableName: true,
-});
+              class Story extends Model {}
+              class RisksAndChallenges extends Model {}
+              class EnvironmentalCommitments extends Model {}
 
-EnvironmentalCommitments.init({
-  title: {
-    type: DataTypes.TEXT
-  },
-  text: {
-    type: DataTypes.TEXT
-  }
-}, {
-  sequelize,
-  modelName: 'EnvironmentalCommitments',
-  freezeTableName: true,
-});
+              Story.init({
+                title: {
+                  type: DataTypes.TEXT
+                },
+                gif: {
+                  type: DataTypes.TEXT
+                },
+                text: {
+                  type: DataTypes.TEXT
+                }
+              }, {
+                sequelize,
+                modelName: 'Story',
+                freezeTableName: true,
+              });
 
-Story.sync()
-RiskAndChallenges.sync()
-EnvironmentalCommitments.sync()
+              RisksAndChallenges.init({
+                title: {
+                  type: DataTypes.TEXT
+                },
+                text: {
+                  type: DataTypes.TEXT
+                }
+              }, {
+                sequelize,
+                modelName: 'RisksAndChallenges',
+                freezeTableName: true,
+              });
 
-module.exports.Story = Story;
-module.exports.RiskAndChallenges = RiskAndChallenges;
-module.exports.EnvironmentalCommitments = EnvironmentalCommitments;
+              EnvironmentalCommitments.init({
+                title: {
+                  type: DataTypes.TEXT
+                },
+                text: {
+                  type: DataTypes.TEXT
+                }
+              }, {
+                sequelize,
+                modelName: 'EnvironmentalCommitments',
+                freezeTableName: true,
+              });
+
+               Story.sync()
+               RisksAndChallenges.sync()
+               EnvironmentalCommitments.sync()
+
+              resolve(sequelize)
+          })
+        })
+    })
+  })
+}
+
+module.exports.Connection = createConnection;

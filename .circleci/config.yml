@@ -1,17 +1,47 @@
-version: 2.1
-orbs:
-  node: circleci/node@1.1.6
+version: 2
 jobs:
-  build-and-test:
-    executor:
-      name: node/default
+  # This is the name of our circle ci test suite
+  # this can be named anything you want
+  test-server:
+    # Use docker to run images of Node & mysql
+    docker:
+      # Tell docker to download and use Node
+      - image: "circleci/node:12.16.3"
+       # Tell docker to download and use MySQL
+       # Set the option of mysql_native_password to enable logging into mysql on the circleci server
+      - image: "mysql:8.0"
+        command: [--default-authentication-plugin=mysql_native_password]
+       # Set environment variables for SQL Server
+        environment:
+          MYSQL_ROOT_PASSWORD: password
+          MYSQL_DATABASE: kstart
+          MYSQL_USER: user
+          MYSQL_PASSWORD: password
+    # Here are the steps to run in circle CI
     steps:
+      # Checkout our github repo code
       - checkout
-      - node/with-cache:
-          steps:
-            - run: npm install
-            - run: npm test
+      # Use Dockerize to wait for the MYSQL database to be ready for connection
+      - run:
+          name: Wait For Database Connection
+          command: dockerize -wait tcp://$HOST:$PORT -timeout 1m
+          environment:
+            HOST: localhost
+            PORT: 3306
+      # Run npm install on your code from your root package.json file
+      - run:
+          name: Install Server Packages
+          command: npm install
+      # Run 'npm run test' on your code inside of the docker container
+      # Be sure to use 'ci:<testNameHere>' - if circle-ci does not see the 'ci:' prefix, it will not fail if the tests fail
+      - run:
+          name: Run Server Test Suite
+          command: npm run ci:test
+# This is some info for circleci - you can omit this if needed. It's used when you have multiple jobs to process, we only have one but
+# I've put it here anyway
 workflows:
-    build-and-test:
-      jobs:
-        - build-and-test
+  version: 2
+  build_and_test:
+    jobs:
+      # the name here must match what you named your job up above
+      - test-server
