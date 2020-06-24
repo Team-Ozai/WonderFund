@@ -16,7 +16,6 @@ jobs:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: kstart
           MYSQL_USER: root
-          MYSQL_PASSWORD: ''
           MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
     # Here are the steps to run in circle CI
     steps:
