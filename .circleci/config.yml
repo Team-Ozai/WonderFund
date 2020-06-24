@@ -14,8 +14,8 @@ jobs:
        # Set environment variables for SQL Server
         environment:
           MYSQL_ROOT_PASSWORD: password
-          MYSQL_DATABASE: kstart
-          MYSQL_USER: root
+          MYSQL_DATABASE: campaign
+          MYSQL_USER: user
           MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
     # Here are the steps to run in circle CI
     steps:
