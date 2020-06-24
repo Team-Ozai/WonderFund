@@ -5,8 +5,8 @@ const createConnection = ()=>{
   return new Promise ((resolve, reject) =>{
     mysql
       .createConnection({
-        user     : DATABASE_USER,
-        password : DATABASE_PASSWORD
+        user     : root,
+        password : ""
       })
       .then((connection) => {
         connection.query('CREATE DATABASE IF NOT EXISTS campaign')

@@ -15,7 +15,7 @@ jobs:
         environment:
           MYSQL_ROOT_PASSWORD: password
           MYSQL_DATABASE: campaign
-          MYSQL_USER: user
+          MYSQL_USER: root
           MYSQL_ALLOW_EMPTY_PASSWORD: 'true'
     # Here are the steps to run in circle CI
     steps:
