@@ -2,10 +2,13 @@ const express = require('express')
 const morgan = require('morgan')
 const db = require('./model/database.js')
 const controller = require('./controller/controller.js')
+const path = require('path');
 
 const app = express()
-const port = 3000
+const port = 3003
 
+// app.use(express.static('../client/dist'))
+app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json())
 app.use(morgan('tiny'));
 
@@ -30,12 +33,6 @@ app.get('/api/environmentalcommitments/:id', function (req, res){
   })
 });
 
-function sum(a, b) {
-  return a + b;
-}
-module.exports = sum;
-
 app.listen(port, () =>{
-
-  //console.log(`listening at http://localhost:${port}`)
+  console.log(`listening at http://localhost:${port}`)
 })
