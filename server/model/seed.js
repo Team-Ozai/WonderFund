@@ -6,7 +6,7 @@ const db = require('./database.js');
 gifAPICall = function(offSetAmount){
   var api = "http://api.giphy.com/v1/gifs/search?";
   var limit = "&limit=25";
-  var query  = "&q=business";
+  var query  = "&q=bed";
   var rating = "&rating=g";
   var apiKey = "&api_key=dc6zaTOxFJmzC";
   var offSet = "&offset=" + offSetAmount;

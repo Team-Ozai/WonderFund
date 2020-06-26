@@ -5,7 +5,7 @@ const createConnection = ()=>{
   return new Promise ((resolve, reject) =>{
     mysql
       .createConnection({
-        user     : root,
+        user     : "root",
         password : ""
       })
       .then((connection) => {

@@ -5,19 +5,30 @@
   "author": "",
   "license": "",
   "scripts": {
-    "test":"jest --detectOpenHandles --forceExit --runInBand",
+    "build": "webpack -d --watch",
+    "test": "jest --detectOpenHandles --forceExit --runInBand",
     "start": "nodemon server/index.js",
     "seed:db": "node server/model/seed.js"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.10.3",
+    "@babel/preset-react": "^7.10.1",
     "axios": "^0.19.2",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.1.0",
     "express": "^4.17.1",
     "faker": "^4.1.0",
     "jest": "^26.0.1",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
-    "sequelize": "^5.21.13"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "sequelize": "^5.21.13",
+    "styled-components": "^5.1.1",
+    "webfontloader": "^1.6.28",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
   },
   "devDependencies": {
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor"
