@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Testing matches the snapshot 1`] = `
+<div
+  className="sc-AxheI eJXcSL"
+>
+  <div
+    className="sc-AxhUy duQhtm"
+  >
+    <nav
+      className="sc-AxhCb dkTehI"
+    >
+      <div
+        className="sc-AxgMl kXAnQF"
+      >
+        <a
+          className="sc-AxmLO indOiH"
+          href="#"
+          onClick={[Function]}
+        >
+          Story
+        </a>
+      </div>
+      <div
+        className="sc-AxgMl kXAnQF"
+      >
+        <a
+          className="sc-AxmLO indOiH"
+          href="#"
+          onClick={[Function]}
+        >
+          Risks And Challenges
+        </a>
+      </div>
+      <div
+        className="sc-AxgMl kXAnQF"
+      >
+        <a
+          className="sc-AxmLO indOiH"
+          href="#"
+          onClick={[Function]}
+        >
+          Environmental Commitments
+        </a>
+      </div>
+    </nav>
+  </div>
+  <div
+    className="sc-Axmtr hpCaXH"
+  >
+    <div
+      className="sc-fzozJi eNfNpC"
+    >
+      <div>
+        <h3
+          className="sc-AxjAm gCQsTJ"
+        >
+          Story
+        </h3>
+        <p
+          className="sc-AxirZ AEowp"
+        />
+        <div>
+          <img
+            className="sc-AxiKw hSLCUF"
+          />
+        </div>
+        <p
+          className="sc-AxirZ AEowp"
+        />
+      </div>
+    </div>
+    <div
+      className="sc-fzozJi eNfNpC"
+    >
+      <div>
+        <h3
+          className="sc-AxjAm gCQsTJ"
+        >
+          Risks And Commitments
+        </h3>
+        <p
+          className="sc-AxirZ AEowp"
+        />
+        <p
+          className="sc-AxirZ AEowp"
+        />
+      </div>
+    </div>
+    <div>
+      <div>
+        <h3
+          className="sc-AxjAm gCQsTJ"
+        >
+          Environmental Commitments
+        </h3>
+        <p
+          className="sc-AxirZ AEowp"
+        />
+        <p
+          className="sc-AxirZ AEowp"
+        />
+        <p
+          className="sc-AxirZ AEowp"
+        />
+        <p
+          className="sc-AxirZ AEowp"
+        />
+        <p
+          className="sc-AxirZ AEowp"
+        />
+        <p
+          className="sc-AxirZ AEowp"
+        />
+        <p
+          className="sc-AxirZ AEowp"
+        />
+        <p
+          className="sc-AxirZ AEowp"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

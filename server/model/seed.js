@@ -6,7 +6,7 @@ const db = require('./database.js');
 gifAPICall = function(offSetAmount){
   var api = "http://api.giphy.com/v1/gifs/search?";
   var limit = "&limit=25";
-  var query  = "&q=bed";
+  var query  = "&q=basketball";
   var rating = "&rating=g";
   var apiKey = "&api_key=dc6zaTOxFJmzC";
   var offSet = "&offset=" + offSetAmount;
@@ -46,11 +46,24 @@ const getGif = function(offset = 0, result=[]){
 
 const addStories = function(gifData, connect){
   return new Promise((resolve, reject)=>{
-    for ( let i = 0; i < gifData.length; i++){
+    for ( let i = 0; i < 100; i++){
       connect.models.Story.create({
-        title: faker.lorem.words(),
-        gif: gifData[i],
-        text:faker.lorem.paragraph()
+        gif1: gifData[ Math.floor(Math.random() * 99) + 0 ],
+        gif2: gifData[ Math.floor(Math.random() * 99) + 0 ],
+        gif3: gifData[ Math.floor(Math.random() * 99) + 0 ],
+        img1: faker.image.sports(),
+        img2: faker.image.sports(),
+        img3: faker.image.sports(),
+        title1: faker.lorem.words(),
+        title2: faker.lorem.words(),
+        title3: faker.lorem.words(),
+        title4: faker.lorem.words(),
+        title5: faker.lorem.words(),
+        text1:faker.lorem.paragraph(),
+        text2:faker.lorem.paragraph(),
+        text3:faker.lorem.paragraph(),
+        text4:faker.lorem.paragraph(),
+        text5:faker.lorem.paragraph()
       })
       .then(function(data){
       })
@@ -65,8 +78,16 @@ const addRisksAndChallenges = function(connect){
   return new Promise((resolve, reject)=>{
     for (let i = 0; i < 100; i++){
       connect.models.RisksAndChallenges.create({
-        title: faker.lorem.words(),
-        text:faker.lorem.paragraph()
+        title1: faker.lorem.words(),
+        title2: faker.lorem.words(),
+        title3: faker.lorem.words(),
+        title4: faker.lorem.words(),
+        title5: faker.lorem.words(),
+        text1:faker.lorem.paragraph(),
+        text2:faker.lorem.paragraph(),
+        text3:faker.lorem.paragraph(),
+        text4:faker.lorem.paragraph(),
+        text5:faker.lorem.paragraph()
       })
       .then(function(data){
       })
@@ -81,8 +102,16 @@ const addEnvironmentalCommitments = function(connect){
   return new Promise((resolve, reject)=>{
     for ( let i = 0; i < 100; i++){
       connect.models.EnvironmentalCommitments.create({
-        title: faker.lorem.words(),
-        text:faker.lorem.paragraph()
+        title1: faker.lorem.words(),
+        title2: faker.lorem.words(),
+        title3: faker.lorem.words(),
+        title4: faker.lorem.words(),
+        title5: faker.lorem.words(),
+        text1:faker.lorem.paragraph(),
+        text2:faker.lorem.paragraph(),
+        text3:faker.lorem.paragraph(),
+        text4:faker.lorem.paragraph(),
+        text5:faker.lorem.paragraph()
       })
       .then(function(data){
       })
