@@ -9,4 +9,4 @@ WebFont.load({
   }
 });
 
-ReactDOM.render(<App/>, document.getElementById('app'))
+ReactDOM.render(<App/>, document.getElementById('campaign'))
