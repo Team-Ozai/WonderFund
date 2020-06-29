@@ -36,7 +36,6 @@ class Campaign extends React.Component {
   }
 
   componentDidMount(){
-    this.storyText.current.focus();
     window.addEventListener('scroll', this.handleScroll);
     this.fetchStory();
     this.fetchRisksAndChallenges();
@@ -98,7 +97,7 @@ class Campaign extends React.Component {
       })
     })
     .catch((err)=>{
-      console.log(err)
+      return err
     })
   }
 
@@ -113,7 +112,7 @@ class Campaign extends React.Component {
       })
     })
     .catch((err)=>{
-      console.log(err)
+      return (err);
     })
   }
 
@@ -128,7 +127,7 @@ class Campaign extends React.Component {
       })
     })
     .catch((err)=>{
-      console.log(err)
+      return err
     })
   }
 

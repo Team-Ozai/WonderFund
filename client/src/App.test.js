@@ -4,6 +4,7 @@ import Adapter from 'enzyme-adapter-react-16'
 import App from './App.jsx';
 import NavTitle from './style/NavTitle.js'
 import renderer from 'react-test-renderer'
+import jsdom from 'jsdom'
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -20,9 +21,11 @@ describe('App Testing', ()=>{
     expect(tree).toMatchSnapshot();
   })
 
-  // it('should show text', ()=>{
-  //   const wrapper = shallow(<App/>);
-  //   const text = wrapper.find(NavTitle);
-  //   expect (text.text()).toBe('Story2')
-  // })
+  it('should show text', ()=>{
+    const wrapper = mount(<App />);
+    const element = wrapper.instance().storyText; // This is your input ref
+    spyOn(element, 'focus');
+    // wrapper.simulate('mouseEnter', eventStub());
+    setTimeout(() => expect(element.focus).toHaveBeenCalled(), 250);
+  })
 })

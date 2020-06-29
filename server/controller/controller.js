@@ -4,10 +4,12 @@ const getStoryFromID = async function(value){
   try{
     const connect = await db.Connection();
     return connect.models.Story.findOne({ where: {id: value }})
-      .then(function(data){
+      .then( function(data){
+
         return data.dataValues
       })
-      .catch(function(err){
+      .catch( function(err){
+
         return err
       })
   } catch(error){
@@ -18,10 +20,12 @@ const getStoryFromID = async function(value){
 const getRisksAndChallengesFromID = async function(value){
   const connect = await db.Connection();
   return connect.models.RisksAndChallenges.findOne({ where: {id: value }})
-  .then(function(data){
+  .then(async function(data){
+    await connect.close()
     return data.dataValues
   })
-  .catch(function(err){
+  .catch(async function(err){
+    await connect.close()
     return err
   })
 }
@@ -29,10 +33,12 @@ const getRisksAndChallengesFromID = async function(value){
 const getEnvironmentalCommitmentsFromID = async function(value){
   const connect = await db.Connection();
   return connect.models.EnvironmentalCommitments.findOne({ where: {id: value }})
-  .then(function(data){
+  .then(async function(data){
+    await connect.close()
     return data.dataValues
   })
-  .catch(function(err){
+  .catch(async function(err){
+    await connect.close()
     return err
   })
 }
