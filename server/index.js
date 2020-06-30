@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const db = require('./model/database.js')
 const controller = require('./controller/controller.js')
 const path = require('path');
+const cors = require('cors')
 
 const app = express()
 const port = 3003
@@ -13,6 +14,7 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use(express.json())
 app.use(morgan('tiny'));
 app.use(cors());
+const cors = require('cors')
 
 app.get('/api/story/:id', function (req, res){
   controller.getStoryFromID(req.params.id)
