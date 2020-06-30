@@ -89,7 +89,7 @@ class Campaign extends React.Component {
   fetchStory(){
     axios({
       method: 'get',
-      url: '/api/story/50',
+      url: 'http://localhost:3003/api/story/50',
     })
     .then((response)=>{
       this.setState({
@@ -104,7 +104,7 @@ class Campaign extends React.Component {
   fetchRisksAndChallenges(){
     axios({
       method: 'get',
-      url: '/api/RisksAndChallenges/2',
+      url: 'http://localhost:3003/api/RisksAndChallenges/2',
     })
     .then((response)=>{
       this.setState({
@@ -119,7 +119,7 @@ class Campaign extends React.Component {
   fetchEnvironmentalChallenges(){
     axios({
       method: 'get',
-      url: '/api/EnvironmentalCommitments/1',
+      url: 'http://localhost:3003/api/EnvironmentalCommitments/1',
     })
     .then((response)=>{
       this.setState({
