@@ -37,6 +37,7 @@ class Campaign extends React.Component {
 
   componentDidMount(){
     window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('scroll', this.navScroll);
     this.fetchStory();
     this.fetchRisksAndChallenges();
     this.fetchEnvironmentalChallenges();
@@ -54,6 +55,12 @@ class Campaign extends React.Component {
     }else if (text === "environmentalCommitments") {
       this.environmentalCommitmentsText.current.focus()
     }
+  }
+
+  navScroll(event){
+    console.log(window.scrollY);
+
+
   }
 
   handleScroll(event) {

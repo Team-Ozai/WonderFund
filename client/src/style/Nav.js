@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 
 const Nav = styled.nav`
-  position: sticky !important;
+  position: sticky;
+  top: 0px;
   width: 123px;
   padding-left: 0rem;
   padding-bottom: 2.4rem;
