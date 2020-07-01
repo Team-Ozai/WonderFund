@@ -14,7 +14,12 @@ const createConnection = ()=>{
       const sequelize = new Sequelize('campaign', 'root', null, {
         host: 'localhost',
         dialect: 'mysql',
-        logging: false
+        pool: {
+          max: 1,
+          min: 0,
+          acquire: 30000,
+          idle: 8000
+        }
       });
       sequelize.authenticate()
       .then( async () => {

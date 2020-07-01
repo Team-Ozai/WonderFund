@@ -123,12 +123,20 @@ const addEnvironmentalCommitments = function(connect){
 }
 
 //Seed 3 tables - Story, RisksAndChallenges, and  EnvironmentalCommitments
-async function getData(){
-  var gifData = await getGif();
-  const connect = await db.Connection();
-  var addRisksAndChallengesEntries = await addRisksAndChallenges(connect);
-  var addEnvironmentalCommitmentsEntries = await addEnvironmentalCommitments(connect);
-  var addStoryEntries = await addStories(gifData, connect);
+const getData = async function (){
+
+  try{
+    var gifData = await getGif();
+    var connect = await db.Connection();
+    var addRisksAndChallengesEntries = await addRisksAndChallenges(connect);
+    var addEnvironmentalCommitmentsEntries = await addEnvironmentalCommitments(connect);
+    var addStoryEntries = await addStories(gifData, connect);
+    // var closeConnection = await connect.close()
+    // var complete = await finish(connect);
+    //  var closeProcess = await process.exit(0);
+  }catch(err){
+    console.log("incomplete");
+  }
 }
 
 getData()
