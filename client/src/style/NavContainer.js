@@ -2,9 +2,9 @@ import styled from 'styled-components'
 
 const NavContainer = styled.div`
   position: sticky;
-  top: 0px;
+  top: 21px;
   float: left;
-  border: 1px solid red;
+  border: 1px solid white;
   width 159px;
 `;
 

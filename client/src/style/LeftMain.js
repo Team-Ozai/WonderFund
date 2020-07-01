@@ -5,7 +5,7 @@ const LeftMain = styled.div`
   padding-bot: 20px;
   float: left;
   width: 670px;
-  border: 1px solid red;
+  border: 1px solid white;
   display: table-row;
 `;
 

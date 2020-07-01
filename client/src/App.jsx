@@ -65,22 +65,22 @@ class Campaign extends React.Component {
 
   handleScroll(event) {
     if (
-      window.pageYOffset >= (this.refStory.current.offsetTop-28)
-      && window.pageYOffset <= (this.refStory.current.offsetTop + this.refStory.current.clientHeight-28)
+      window.pageYOffset >= (this.refStory.current.offsetTop-30)
+      && window.pageYOffset <= (this.refStory.current.offsetTop + this.refStory.current.clientHeight-30)
       )
     {
       this.focus('story');
     }else if (
-      window.pageYOffset >= (this.refRisksAndChallenges.current.offsetTop-28)
+      window.pageYOffset >= (this.refRisksAndChallenges.current.offsetTop-30)
       && window.pageYOffset <= (this.refRisksAndChallenges.current.offsetTop
-      + this.refRisksAndChallenges.current.clientHeight-28)
+      + this.refRisksAndChallenges.current.clientHeight-30)
       )
     {
       this.focus('risksAndChallenges')
     }else if(
-      window.pageYOffset >= (this.refEnvironmentalCommitments.current.offsetTop-28)
+      window.pageYOffset >= (this.refEnvironmentalCommitments.current.offsetTop-30)
       && window.pageYOffset <= (this.refEnvironmentalCommitments.current.offsetTop
-      + this.refEnvironmentalCommitments.current.clientHeight-28)
+      + this.refEnvironmentalCommitments.current.clientHeight-30)
       )
     {
       this.focus('environmentalCommitments')
@@ -89,7 +89,7 @@ class Campaign extends React.Component {
 
   scrollToRef(ref){
     window.scrollTo({
-      top: ref.current.offsetTop-28
+      top: ref.current.offsetTop-30
     });
   }
 
