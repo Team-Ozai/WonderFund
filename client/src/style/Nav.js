@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const Nav = styled.nav`
-  position: fixed !important;
+  position: sticky !important;
   width: 123px;
   padding-left: 0rem;
   padding-bottom: 2.4rem;
