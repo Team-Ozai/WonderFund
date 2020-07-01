@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const Link = styled.a`
   &:link{
-    color:blue;
+    color:#656969;
   }
 
   &:visited{
@@ -25,7 +25,7 @@ const Link = styled.a`
     color: #009E74;
   }
 
-  color:rgb(0, 158, 116);
+  color:#656969;
   background-color:#000000;
   background-color:rgba(0, 0, 0, 0);
 
