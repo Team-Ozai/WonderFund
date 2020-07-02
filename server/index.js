@@ -10,7 +10,7 @@ const port = 3003
 
 
 // app.use(express.static('../client/dist'))
-app.use(express.static(__dirname + '/../client/dist'));
+app.use('/:id', express.static(__dirname + '/../client/dist'));
 app.use(express.json())
 app.use(morgan('tiny'));
 app.use(cors());
