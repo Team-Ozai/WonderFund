@@ -57,9 +57,9 @@ class Campaign extends React.Component {
     }
   }
 
-  navScroll(event){
-    console.log(window.scrollY);
-  }
+  // navScroll(event){
+  //   // console.log(window.scrollY);
+  // }
 
   handleScroll(event) {
     if (
@@ -94,11 +94,12 @@ class Campaign extends React.Component {
   getParams () {
     const currentAddress = window.location.href;
     let url = currentAddress.split('')
-    return url[url.length-2]
+    return url[url.length-1]
   };
 
   fetchStory(){
     let idx = this.getParams()
+    if (idx === "/") idx = 1;
     axios({
       method: 'get',
       url: 'http://localhost:3003/api/story/' + idx,
@@ -115,6 +116,7 @@ class Campaign extends React.Component {
 
   fetchRisksAndChallenges(){
     let idx = this.getParams()
+    if (idx === "/") idx = 1;
     axios({
       method: 'get',
       url: 'http://localhost:3003/api/RisksAndChallenges/'+idx,
@@ -131,6 +133,7 @@ class Campaign extends React.Component {
 
   fetchEnvironmentalChallenges(){
     let idx = this.getParams()
+    if (idx === "/") idx = 1;
     axios({
       method: 'get',
       url: 'http://localhost:3003/api/EnvironmentalCommitments/'+idx,

@@ -14,6 +14,7 @@ const createConnection = ()=>{
       const sequelize = new Sequelize('campaign', 'root', null, {
         host: 'localhost',
         dialect: 'mysql',
+        logging:false,
         pool: {
           max: 1,
           min: 0,
