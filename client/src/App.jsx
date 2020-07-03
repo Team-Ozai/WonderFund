@@ -102,7 +102,7 @@ class Campaign extends React.Component {
     if (idx === "/") idx = 1;
     axios({
       method: 'get',
-      url: 'http://localhost:3003/api/story/' + idx,
+      url: '/api/story/' + idx,
     })
     .then((response)=>{
       this.setState({
@@ -119,7 +119,7 @@ class Campaign extends React.Component {
     if (idx === "/") idx = 1;
     axios({
       method: 'get',
-      url: 'http://localhost:3003/api/RisksAndChallenges/'+idx,
+      url: '/api/RisksAndChallenges/'+idx,
     })
     .then((response)=>{
       this.setState({
@@ -136,7 +136,7 @@ class Campaign extends React.Component {
     if (idx === "/") idx = 1;
     axios({
       method: 'get',
-      url: 'http://localhost:3003/api/EnvironmentalCommitments/'+idx,
+      url: '/api/EnvironmentalCommitments/'+idx,
     })
     .then((response)=>{
       this.setState({
