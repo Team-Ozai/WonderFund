@@ -4,15 +4,13 @@ const db = require('./database.js');
 const csv = require('fast-csv');
 const path = require('path');
 const fs = require('fs');
-const { Pool, Client } = require('pg')
-// const connectionString = 'postgresql://root:root@localhost:5432/campaign'
-const client = new Pool({
-  user: "root",
-  host: "localhost",
-  database: "campaign",
-  password: "root",
-  port: "5432"
-});
+
+  const writeRNC = fs.createWriteStream('rnc.csv');
+  writeRNC.write('title1, title2, title3, title4, title5, text1, text2, text3, text4, text5\n', 'utf8');
+  const writeEC = fs.createWriteStream('ec.csv');
+  writeEC.write('title1, title2, title3, title4, title5, text1, text2, text3, text4, text5\n', 'utf8');
+  const writeStory = fs.createWriteStream('story.csv');
+  writeStory.write('gif1, gif2, gif3, img1, img2, img3, title1, title2, title3, title4, title5, text1, text2, text3, text4, text5\n', 'utf8');
 
 //API Call for gifs
 gifAPICall = function (offSetAmount) {
@@ -57,190 +55,125 @@ const getGif = function (offset = 0, result = []) {
 }
 
 
+function writeRNCData(writer, encoding, callback) {
 
-const RNC = async (connect) => {
-  var ws = fs.createWriteStream("rnc.csv");
-  var csvStream = csv.format({ headers: true });
-  csvStream.pipe(ws);
-  var rncPath = path.join(__dirname, 'rnc.csv')
-
-  for (var i = 0; i < 10000000; i++) {
-    await csvStream.write({
-      title1: faker.lorem.words(),
-      title2: faker.lorem.words(),
-      title3: faker.lorem.words(),
-      title4: faker.lorem.words(),
-      title5: faker.lorem.words(),
-      text1: faker.lorem.paragraph(),
-      text2: faker.lorem.paragraph(),
-      text3: faker.lorem.paragraph(),
-      text4: faker.lorem.paragraph(),
-      text5: faker.lorem.paragraph()
-    })
+  let i = 10000000;
+  function write() {
+    let ok = true;
+    do {
+      i -= 1;
+      const title1= faker.lorem.words();
+      const title2= faker.lorem.words();
+      const title3= faker.lorem.words();
+      const title4= faker.lorem.words();
+      const title5= faker.lorem.words();
+      const text1= faker.lorem.paragraph();
+      const text2= faker.lorem.paragraph();
+      const text3= faker.lorem.paragraph();
+      const text4= faker.lorem.paragraph();
+      const text5= faker.lorem.paragraph();
+      const data = `${title1},${title2},${title3},${title4},${title5},${text1},${text2},${text3},${text4},${text5}\n`;
+      if (i === 0) {
+        writer.write(data, encoding, callback);
+      } else {
+        ok = writer.write(data, encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      writer.once('drain', write);
+    }
   }
-
-  csvStream.end();
-
+write()
 }
-// connect.query(`COPY "RisksAndChallenges"(title1, title2, title3, title4, title5, text1, text2, text3, text4, text5) FROM '${rncPath}' DELIMITER ',' CSV HEADER`);
 
-const Story = async (connect) => {
+function writeECData(writer, encoding, callback) {
+
+  let i = 10000000;
+  function write() {
+    let ok = true;
+    do {
+      i -= 1;
+      const title1= faker.lorem.words();
+      const title2= faker.lorem.words();
+      const title3= faker.lorem.words();
+      const title4= faker.lorem.words();
+      const title5= faker.lorem.words();
+      const text1= faker.lorem.paragraph();
+      const text2= faker.lorem.paragraph();
+      const text3= faker.lorem.paragraph();
+      const text4= faker.lorem.paragraph();
+      const text5= faker.lorem.paragraph();
+      const data = `${title1},${title2},${title3},${title4},${title5},${text1},${text2},${text3},${text4},${text5}\n`;
+      if (i === 0) {
+        writer.write(data, encoding, callback);
+      } else {
+        ok = writer.write(data, encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      writer.once('drain', write);
+    }
+  }
+write()
+}
+
+const writeStoryData = async (writer, encoding, callback) => {
   var gifData = await getGif();
-  var ws = fs.createWriteStream("story.csv");
-  var csvStream = csv.format({ headers: true });
-  csvStream.pipe(ws);
-  var storyPath = path.join(__dirname, 'story.csv')
-
-
-  for (var i = 0; i < 10000000; i++) {
-    await csvStream.write({
-      gif1: gifData[Math.floor(Math.random() * 99) + 0],
-      gif2: gifData[Math.floor(Math.random() * 99) + 0],
-      gif3: gifData[Math.floor(Math.random() * 99) + 0],
-      img1: faker.image.sports(),
-      img2: faker.image.sports(),
-      img3: faker.image.sports(),
-      title1: faker.lorem.words(),
-      title2: faker.lorem.words(),
-      title3: faker.lorem.words(),
-      title4: faker.lorem.words(),
-      title5: faker.lorem.words(),
-      text1: faker.lorem.paragraph(),
-      text2: faker.lorem.paragraph(),
-      text3: faker.lorem.paragraph(),
-      text4: faker.lorem.paragraph(),
-      text5: faker.lorem.paragraph()
-    })
+  let i = 10000000;
+  function write() {
+    let ok = true;
+    do {
+      i -= 1;
+      const gif1= gifData[Math.floor(Math.random() * 99) + 0];
+      const gif2= gifData[Math.floor(Math.random() * 99) + 0];
+      const gif3= gifData[Math.floor(Math.random() * 99) + 0];
+      const img1= faker.image.sports();
+      const img2= faker.image.sports();
+      const img3= faker.image.sports();
+      const title1= faker.lorem.words();
+      const title2= faker.lorem.words();
+      const title3= faker.lorem.words();
+      const title4= faker.lorem.words();
+      const title5= faker.lorem.words();
+      const text1= faker.lorem.paragraph();
+      const text2= faker.lorem.paragraph();
+      const text3= faker.lorem.paragraph();
+      const text4= faker.lorem.paragraph();
+      const text5= faker.lorem.paragraph();
+      const data = `${gif1},${gif2},${gif3},${img1},${img2},${img3},${title1},${title2},${title3},${title4},${title5},${text1},${text2},${text3},${text4},${text5}\n`;
+      if (i === 0) {
+        writer.write(data, encoding, callback);
+      } else {
+        ok = writer.write(data, encoding);
+      }
+    } while (i > 0 && ok);
+    if (i > 0) {
+      writer.once('drain', write);
+    }
   }
-  csvStream.end();
-
+write()
 }
 
-//   async function query() {
-//     console.log('before');
-//   await writeFile();
-//   console.log('after1');
-//   setTimeout(()=>connect.query(`COPY "Story"(gif1, gif2, gif3, img1, img2, img3, title1, title2, title3, title4, title5, text1, text2, text3, text4, text5) FROM '${storyPath}' DELIMITER ',' CSV HEADER`),5000);
-//   console.log('after2');
+//Generate Data for 3 tables - Story, RisksAndChallenges, and  EnvironmentalCommitments
+// const getData = async function () {
+//   var connect = await db.pgConnection();
+const getData = function () {
 
-// }
-// query();
-const EC = async (connect) => {
-  var ws = fs.createWriteStream("ec.csv");
-  var csvStream = csv.format({ headers: true });
-  csvStream.pipe(ws);
-  var ecPath = path.join(__dirname, 'ec.csv')
-
-  for (var i = 0; i < 10000000; i++) {
-    csvStream.write({
-      title1: faker.lorem.words(),
-      title2: faker.lorem.words(),
-      title3: faker.lorem.words(),
-      title4: faker.lorem.words(),
-      title5: faker.lorem.words(),
-      text1: faker.lorem.paragraph(),
-      text2: faker.lorem.paragraph(),
-      text3: faker.lorem.paragraph(),
-      text4: faker.lorem.paragraph(),
-      text5: faker.lorem.paragraph()
-    })
-  }
-
-  csvStream.end();
-
-}
-// connect.query(`COPY "EnvironmentalCommitments"(title1, title2, title3, title4, title5, text1, text2, text3, text4, text5) FROM '${ecPath}' DELIMITER ',' CSV HEADER`)
-// const addStories = async (gifData, connect) => {
-
-//   var start = Date.now();
-//   for (var i = 0; i < 1000; i++) {
-//     await connect.models.Story.create({
-//       gif1: gifData[Math.floor(Math.random() * 99) + 0],
-//       gif2: gifData[Math.floor(Math.random() * 99) + 0],
-//       gif3: gifData[Math.floor(Math.random() * 99) + 0],
-//       img1: faker.image.sports(),
-//       img2: faker.image.sports(),
-//       img3: faker.image.sports(),
-//       title1: faker.lorem.words(),
-//       title2: faker.lorem.words(),
-//       title3: faker.lorem.words(),
-//       title4: faker.lorem.words(),
-//       title5: faker.lorem.words(),
-//       text1: faker.lorem.paragraph(),
-//       text2: faker.lorem.paragraph(),
-//       text3: faker.lorem.paragraph(),
-//       text4: faker.lorem.paragraph(),
-//       text5: faker.lorem.paragraph()
-//     })
-//       .then(function (data) {
-//       })
-//       .catch(function (err) {
-//       })
-//   }
-//   var end = Date.now();
-//   console.log(`Story Execution time: ${end - start} ms`);
-// }
-
-
-// const addRisksAndChallenges = async (connect) => {
-//   var start = Date.now();
-//   for (var i = 0; i < 10000000; i++) {
-//     await connect.models.RisksAndChallenges.create({
-//       title1: faker.lorem.words(),
-//       title2: faker.lorem.words(),
-//       title3: faker.lorem.words(),
-//       title4: faker.lorem.words(),
-//       title5: faker.lorem.words(),
-//       text1: faker.lorem.paragraph(),
-//       text2: faker.lorem.paragraph(),
-//       text3: faker.lorem.paragraph(),
-//       text4: faker.lorem.paragraph(),
-//       text5: faker.lorem.paragraph()
-//     })
-//       .then(function (data) {
-//       })
-//       .catch(function (err) {
-//       })
-//   }
-//   var end = Date.now();
-//   console.log(`RisksAndChallenge Execution time: ${end - start} ms`);
-// }
-
-
-// const addEnvironmentalCommitments = async (connect) => {
-//   var start = Date.now();
-//   for (var i = 0; i < 10000000; i++) {
-//     await connect.models.EnvironmentalCommitments.create({
-//       title1: faker.lorem.words(),
-//       title2: faker.lorem.words(),
-//       title3: faker.lorem.words(),
-//       title4: faker.lorem.words(),
-//       title5: faker.lorem.words(),
-//       text1: faker.lorem.paragraph(),
-//       text2: faker.lorem.paragraph(),
-//       text3: faker.lorem.paragraph(),
-//       text4: faker.lorem.paragraph(),
-//       text5: faker.lorem.paragraph()
-//     })
-//       .then(function (data) {
-//       })
-//       .catch(function (err) {
-//       })
-//   }
-//   var end = Date.now();
-//   console.log(`EnvironmentalCommitments Execution time: ${end - start} ms`);
-// }
-
-
-//Seed 3 tables - Story, RisksAndChallenges, and  EnvironmentalCommitments
-const getData = async function () {
-  var connect = await db.pgConnection();
   // var addRisksAndChallengesEntries = await addRisksAndChallenges(connect);
   // var addEnvironmentalCommitmentsEntries = await addEnvironmentalCommitments(connect);
   // var addStoryEntries = await addStories(gifData, connect);
-  Story(connect);
-  RNC(connect);
-  EC(connect);
+  // Story();
+  // RNC();
+  // EC();
+  writeRNCData(writeRNC, 'utf-8', () => {
+    writeRNC.end();
+  });
+  writeECData(writeEC, 'utf-8', () => {
+    writeEC.end();
+  });
+  writeStoryData(writeStory, 'utf-8', () => {
+    writeStory.end();
+  });
   // var closeConnection = await connect.close()
   // var complete = await finish(connect);
   //  var closeProcess = await process.exit(0);
