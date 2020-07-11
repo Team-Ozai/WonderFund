@@ -8,7 +8,8 @@
     "build": "webpack -d --watch ",
     "test": "jest",
     "start": "nodemon server/index.js",
-    "seed:db": "node server/model/seed.js"
+    "dataGen": "node --max-old-space-size=16000 fileGenerator.js",
+    "seedDB": "node --max-old-space-size=16000 seed.js"
   },
   "dependencies": {
     "@babel/core": "^7.10.3",
@@ -23,11 +24,15 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "faker": "^4.1.0",
+    "fast-csv": "^4.3.1",
     "jest": "^26.1.0",
     "jsdom": "^16.2.2",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
+    "pg": "^8.3.0",
+    "pg-hstore": "^2.3.3",
+    "pg-promise": "^10.5.8",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-test-renderer": "^16.13.1",

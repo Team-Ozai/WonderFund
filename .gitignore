@@ -24,3 +24,4 @@ coverage
 build/
 bundle.js
 
+*.csv

@@ -1,26 +1,29 @@
-const mysql = require('mysql2/promise');
+// const {Pool, Client} = require('pg');
+const pg = require('pg');
 const { Sequelize, DataTypes, Model } = require('sequelize');
 
-const createConnection = ()=>{
+
+const pgcreateConnection = ()=>{
   return new Promise ((resolve, reject) =>{
-    mysql.createConnection({
-      user     : "root",
-      password : "root"
-    })
-    .then((connection) => {
-      connection.query('CREATE DATABASE IF NOT EXISTS campaign')
-    })
-    .then(() => {
+    // pg.connect({
+    //   user     : "root",
+    //   password : "root"
+    // })
+    // .then((connection) => {
+    //   connection.query('CREATE DATABASE IF NOT EXISTS campaign')
+    // })
+    // .then(() => {
       const sequelize = new Sequelize('campaign', 'root', 'root', {
         host: 'localhost',
-        dialect: 'mysql',
+        dialect: 'postgres',
         logging:false,
         pool: {
           max: 1,
           min: 0,
           acquire: 30000,
           idle: 8000
-        }
+        },
+
       });
       sequelize.authenticate()
       .then( async () => {
@@ -49,6 +52,7 @@ const createConnection = ()=>{
           sequelize,
           modelName: 'Story',
           freezeTableName: true,
+          timestamps:false
         });
 
         RisksAndChallenges.init({
@@ -66,6 +70,7 @@ const createConnection = ()=>{
           sequelize,
           modelName: 'RisksAndChallenges',
           freezeTableName: true,
+          timestamps:false
         });
 
         EnvironmentalCommitments.init({
@@ -83,6 +88,7 @@ const createConnection = ()=>{
           sequelize,
           modelName: 'EnvironmentalCommitments',
           freezeTableName: true,
+          timestamps:false
         });
 
         await Story.sync()
@@ -98,7 +104,7 @@ const createConnection = ()=>{
     .catch( (err) => {
       reject(err);
     });
-  })
-}
-
-module.exports.Connection = createConnection;
+  }
+  // )}
+// pgcreateConnection();
+module.exports.pgConnection = pgcreateConnection;
