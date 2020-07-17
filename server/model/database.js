@@ -1,104 +1,108 @@
-const mysql = require('mysql2/promise');
+// const {Pool, Client} = require('pg');
+const { Pool, Client } = require('pg');
 const { Sequelize, DataTypes, Model } = require('sequelize');
 
-const createConnection = ()=>{
-  return new Promise ((resolve, reject) =>{
-    mysql.createConnection({
-      user     : "root",
-      password : "root"
-    })
-    .then((connection) => {
-      connection.query('CREATE DATABASE IF NOT EXISTS campaign')
-    })
-    .then(() => {
-      const sequelize = new Sequelize('campaign', 'root', 'root', {
-        host: 'localhost',
-        dialect: 'mysql',
-        logging:false,
-        pool: {
-          max: 1,
-          min: 0,
-          acquire: 30000,
-          idle: 8000
-        }
-      });
+const pgcreateConnection = () => {
+  return new Promise((resolve, reject) => {
+    // module.exports.init = function(callback) {
+    var dbName = 'campaign',
+      username = 'root',
+      password = 'root',
+      host = 'postgres',
+      port = ':5432'
+
+    var conStringPri = 'postgres://' + username + ':' + password + '@' + host + port + '/postgres';
+    var conStringPost = 'postgres://' + username + ':' + password + '@' + host + port + '/' + dbName;
+
+    // connect to postgres db
+    const pool = new Pool({ connectionString: conStringPri })
+    // const pool = new Pool({ database: 'postgres' })
+    pool.query('CREATE DATABASE ' + dbName, function (err, res) {
+      //db should exist now, initialize Sequelize
+
+      var sequelize = new Sequelize(conStringPost);
       sequelize.authenticate()
-      .then( async () => {
-        class Story extends Model {}
-        class RisksAndChallenges extends Model {}
-        class EnvironmentalCommitments extends Model {}
+        .then(async () => {
+          class Story extends Model { }
+          class RisksAndChallenges extends Model { }
+          class EnvironmentalCommitments extends Model { }
 
-        Story.init({
-          gif1: { type: DataTypes.TEXT },
-          gif2: { type: DataTypes.TEXT },
-          gif3: { type: DataTypes.TEXT },
-          img1: { type: DataTypes.TEXT },
-          img2: { type: DataTypes.TEXT },
-          img3: { type: DataTypes.TEXT },
-          title1: { type: DataTypes.TEXT },
-          title2: { type: DataTypes.TEXT },
-          title3: { type: DataTypes.TEXT },
-          title4: { type: DataTypes.TEXT },
-          title5: { type: DataTypes.TEXT },
-          text1: { type: DataTypes.TEXT },
-          text2: { type: DataTypes.TEXT },
-          text3: { type: DataTypes.TEXT },
-          text4: { type: DataTypes.TEXT },
-          text5: { type: DataTypes.TEXT }
+          Story.init({
+            gif1: { type: DataTypes.TEXT },
+            gif2: { type: DataTypes.TEXT },
+            gif3: { type: DataTypes.TEXT },
+            img1: { type: DataTypes.TEXT },
+            img2: { type: DataTypes.TEXT },
+            img3: { type: DataTypes.TEXT },
+            title1: { type: DataTypes.TEXT },
+            title2: { type: DataTypes.TEXT },
+            title3: { type: DataTypes.TEXT },
+            title4: { type: DataTypes.TEXT },
+            title5: { type: DataTypes.TEXT },
+            text1: { type: DataTypes.TEXT },
+            text2: { type: DataTypes.TEXT },
+            text3: { type: DataTypes.TEXT },
+            text4: { type: DataTypes.TEXT },
+            text5: { type: DataTypes.TEXT }
           }, {
-          sequelize,
-          modelName: 'Story',
-          freezeTableName: true,
-        });
+            sequelize,
+            modelName: 'Story',
+            freezeTableName: true,
+            timestamps: false
+          });
 
-        RisksAndChallenges.init({
-          title1: { type: DataTypes.TEXT },
-          title2: { type: DataTypes.TEXT },
-          title3: { type: DataTypes.TEXT },
-          title4: { type: DataTypes.TEXT },
-          title5: { type: DataTypes.TEXT },
-          text1: { type: DataTypes.TEXT },
-          text2: { type: DataTypes.TEXT },
-          text3: { type: DataTypes.TEXT },
-          text4: { type: DataTypes.TEXT },
-          text5: { type: DataTypes.TEXT }
+          RisksAndChallenges.init({
+            title1: { type: DataTypes.TEXT },
+            title2: { type: DataTypes.TEXT },
+            title3: { type: DataTypes.TEXT },
+            title4: { type: DataTypes.TEXT },
+            title5: { type: DataTypes.TEXT },
+            text1: { type: DataTypes.TEXT },
+            text2: { type: DataTypes.TEXT },
+            text3: { type: DataTypes.TEXT },
+            text4: { type: DataTypes.TEXT },
+            text5: { type: DataTypes.TEXT }
           }, {
-          sequelize,
-          modelName: 'RisksAndChallenges',
-          freezeTableName: true,
-        });
+            sequelize,
+            modelName: 'RisksAndChallenges',
+            freezeTableName: true,
+            timestamps: false
+          });
 
-        EnvironmentalCommitments.init({
-          title1: { type: DataTypes.TEXT },
-          title2: { type: DataTypes.TEXT },
-          title3: { type: DataTypes.TEXT },
-          title4: { type: DataTypes.TEXT },
-          title5: { type: DataTypes.TEXT },
-          text1: { type: DataTypes.TEXT },
-          text2: { type: DataTypes.TEXT },
-          text3: { type: DataTypes.TEXT },
-          text4: { type: DataTypes.TEXT },
-          text5: { type: DataTypes.TEXT }
+          EnvironmentalCommitments.init({
+            title1: { type: DataTypes.TEXT },
+            title2: { type: DataTypes.TEXT },
+            title3: { type: DataTypes.TEXT },
+            title4: { type: DataTypes.TEXT },
+            title5: { type: DataTypes.TEXT },
+            text1: { type: DataTypes.TEXT },
+            text2: { type: DataTypes.TEXT },
+            text3: { type: DataTypes.TEXT },
+            text4: { type: DataTypes.TEXT },
+            text5: { type: DataTypes.TEXT }
           }, {
-          sequelize,
-          modelName: 'EnvironmentalCommitments',
-          freezeTableName: true,
+            sequelize,
+            modelName: 'EnvironmentalCommitments',
+            freezeTableName: true,
+            timestamps: false
+          });
+
+          await Story.sync()
+          await RisksAndChallenges.sync()
+          await EnvironmentalCommitments.sync()
+
+          resolve(sequelize)
+        })
+        .catch((err) => {
+          reject(err);
         });
-
-        await Story.sync()
-        await RisksAndChallenges.sync()
-        await EnvironmentalCommitments.sync()
-
-        resolve(sequelize)
-      })
-      .catch( (err) => {
-        reject(err);
-      });
+      pool.end();
     })
-    .catch( (err) => {
-      reject(err);
-    });
   })
-}
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
-module.exports.Connection = createConnection;
+pgcreateConnection();
+module.exports.Connection = pgcreateConnection;

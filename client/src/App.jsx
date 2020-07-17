@@ -98,11 +98,11 @@ class Campaign extends React.Component {
   };
 
   fetchStory(){
-    let idx = this.getParams()
+    let idx = window.location.pathname;
     if (idx === "/") idx = 1;
     axios({
       method: 'get',
-      url: '/api/story/' + idx,
+      url: '/api/story' + idx,
     })
     .then((response)=>{
       this.setState({
@@ -115,11 +115,11 @@ class Campaign extends React.Component {
   }
 
   fetchRisksAndChallenges(){
-    let idx = this.getParams()
+    let idx = window.location.pathname;
     if (idx === "/") idx = 1;
     axios({
       method: 'get',
-      url: '/api/RisksAndChallenges/'+idx,
+      url: '/api/RisksAndChallenges'+idx,
     })
     .then((response)=>{
       this.setState({
@@ -132,11 +132,12 @@ class Campaign extends React.Component {
   }
 
   fetchEnvironmentalChallenges(){
-    let idx = this.getParams()
+    let idx = window.location.pathname;
+    console.log(idx);
     if (idx === "/") idx = 1;
     axios({
       method: 'get',
-      url: '/api/EnvironmentalCommitments/'+idx,
+      url: '/api/EnvironmentalCommitments'+idx,
     })
     .then((response)=>{
       this.setState({

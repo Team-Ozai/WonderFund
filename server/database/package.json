@@ -1,0 +1,16 @@
+{
+  "name": "database",
+  "version": "1.0.0",
+  "description": "",
+  "main": "fileGenerator.js",
+  "scripts": {
+    "build": "node fileGnerator.js && node pgseed.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "faker": "^4.1.0",
+    "pg": "^8.3.0"
+  }
+}

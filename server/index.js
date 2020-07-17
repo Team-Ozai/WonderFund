@@ -1,3 +1,4 @@
+var newrelic = require('newrelic');
 const express = require('express')
 const morgan = require('morgan')
 const db = require('./model/database.js')
@@ -6,7 +7,7 @@ const path = require('path');
 const cors = require('cors')
 
 const app = express()
-const port = 3003
+const port = 3005
 
 app.use(express.json())
 app.use(morgan('tiny'));
@@ -48,6 +49,7 @@ app.get('/api/risksandchallenges/', function (req, res) {
 });
 
 app.get('/api/environmentalcommitments/:id', function (req, res) {
+  console.log('hi', req.params.id);
   controller.getEnvironmentalCommitmentsFromID(req.params.id)
     .then(function (data) {
       res.status(200).send(data);
