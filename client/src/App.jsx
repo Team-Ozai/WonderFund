@@ -119,7 +119,7 @@ class Campaign extends React.Component {
     if (idx === "/") idx = 1;
     axios({
       method: 'get',
-      url: '/api/RisksAndChallenges'+idx,
+      url: '/api/risksandchallenges'+idx,
     })
     .then((response)=>{
       this.setState({
@@ -137,7 +137,7 @@ class Campaign extends React.Component {
     if (idx === "/") idx = 1;
     axios({
       method: 'get',
-      url: '/api/EnvironmentalCommitments'+idx,
+      url: '/api/environmentalcommitments'+idx,
     })
     .then((response)=>{
       this.setState({
