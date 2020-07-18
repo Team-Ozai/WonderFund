@@ -104,5 +104,5 @@ const pgcreateConnection = () => {
     });
 };
 
-pgcreateConnection();
+// pgcreateConnection();
 module.exports.Connection = pgcreateConnection;

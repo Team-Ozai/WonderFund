@@ -4,7 +4,7 @@ const path = require('path');
 
 const client = new Pool({
   user: "root",
-  host: "postgres",
+  host: "localhost",
   database: "campaign",
   password: "root",
   port: "5432"
