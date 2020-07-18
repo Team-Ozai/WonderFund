@@ -8,7 +8,7 @@ const pgcreateConnection = () => {
     var dbName = 'campaign',
       username = 'root',
       password = 'root',
-      host = 'postgres',
+      host = 'localhost',
       port = ':5432'
 
     var conStringPri = 'postgres://' + username + ':' + password + '@' + host + port + '/postgres';
