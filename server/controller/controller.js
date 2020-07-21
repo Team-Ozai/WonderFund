@@ -4,7 +4,7 @@ const { Pool, Client } = require('pg');
 var dbName = 'campaign',
   username = 'root',
   password = 'root',
-  host = 'localhost',
+  host = 'postgres',
   port = ':5432'
 
 var conStringPost = 'postgres://' + username + ':' + password + '@' + host + port + '/' + dbName;

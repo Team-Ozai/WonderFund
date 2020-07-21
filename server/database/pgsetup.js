@@ -2,7 +2,7 @@
 const { Pool, Client } = require('pg');
 const { Sequelize, DataTypes, Model } = require('sequelize');
 
-const pgcreateConnection = () => {
+const pgSetup = () => {
   return new Promise((resolve, reject) => {
     // module.exports.init = function(callback) {
     var dbName = 'campaign',
@@ -15,8 +15,9 @@ const pgcreateConnection = () => {
     var conStringPost = 'postgres://' + username + ':' + password + '@' + host + port + '/' + dbName;
 
     // connect to postgres db
-    const pool = new Pool({ connectionString: conStringPri })
+    const pool = new Pool({ connectionString: conStringPost })
     // const pool = new Pool({ database: 'postgres' })
+    pool.query('DROP TABLE "Story", "RisksAndChallenges", "EnvironmentalCommitments"');
     pool.query('CREATE DATABASE ' + dbName, function (err, res) {
       //db should exist now, initialize Sequelize
 
@@ -104,5 +105,5 @@ const pgcreateConnection = () => {
     });
 };
 
-pgcreateConnection();
-module.exports.Connection = pgcreateConnection;
+// pgSetup();
+module.exports.Setup = pgSetup;

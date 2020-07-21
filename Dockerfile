@@ -23,9 +23,10 @@ COPY ./ ./
 
 # Command to run upon mounting image
 RUN npm install
-RUN npm run pgdataGen
+# RUN npm run pgdataGen
 RUN npm run webpack:build
-#RUN git clone https://github.com/vishnubob/wait-for-it.git
+RUN npm run pgdbsetup
+RUN git clone https://github.com/vishnubob/wait-for-it.git
 EXPOSE 3003
 
 # Command to access the bash of the image

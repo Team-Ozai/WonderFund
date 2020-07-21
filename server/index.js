@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/../client/dist'));
 var dbName = 'campaign',
   username = 'root',
   password = 'root',
-  host = 'localhost',
+  host = 'postgres',
   dbport = ':5432'
 
 var conStringPost = 'postgres://' + username + ':' + password + '@' + host + dbport + '/' + dbName;
