@@ -36,6 +36,10 @@ services:
       - "5432:5432"
     volumes:
       - "./server/database:/var/lib/postgresql/data/pgdata"
+    volumeMounts:
+      - mountPath: /var/lib/postgresql/data
+        name: test-db-volume
+        subPath: pgdata
 
   # Backend API
   app:
