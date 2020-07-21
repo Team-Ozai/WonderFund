@@ -26,3 +26,6 @@ build/
 
 subdata/
 *.csv
+
+#db-configuration file
+db-config.json

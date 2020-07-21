@@ -1,23 +1,19 @@
 // const {Pool, Client} = require('pg');
 const { Pool, Client } = require('pg');
 const { Sequelize, DataTypes, Model } = require('sequelize');
+const dbConfig = require('../config/db-config.json');
 
 const pgcreateConnection = () => {
   return new Promise((resolve, reject) => {
     // module.exports.init = function(callback) {
-    var dbName = 'campaign',
-      username = 'root',
-      password = 'root',
-      host = 'postgres',
-      port = ':5432'
 
-    var conStringPri = 'postgres://' + username + ':' + password + '@' + host + port + '/postgres';
-    var conStringPost = 'postgres://' + username + ':' + password + '@' + host + port + '/' + dbName;
+    var conStringPri = 'postgres://' + dbConfig.username + ':' + dbConfig.password + '@' + dbConfig.host + dbConfig.port + '/postgres';
+    var conStringPost = 'postgres://' + dbConfig.username + ':' + dbConfig.password + '@' + dbConfig.host + dbConfig.port + '/' + dbConfig.dbName;
 
     // connect to postgres db
     const pool = new Pool({ connectionString: conStringPri })
     // const pool = new Pool({ database: 'postgres' })
-    pool.query('CREATE DATABASE ' + dbName, function (err, res) {
+    pool.query('CREATE DATABASE ' + dbConfig.dbName, function (err, res) {
       //db should exist now, initialize Sequelize
 
       var sequelize = new Sequelize(conStringPost);

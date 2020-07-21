@@ -26,3 +26,6 @@ bundle.js
 
 .git
 subdata/
+
+#db-configuration file
+db-config.json

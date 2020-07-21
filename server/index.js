@@ -4,7 +4,7 @@ const morgan = require('morgan')
 const path = require('path');
 const cors = require('cors');
 const { Pool, Client } = require('pg');
-
+const dbConfig = require('./config/db-config.json');
 const app = express()
 const port = 3003
 
@@ -13,13 +13,8 @@ app.use(morgan('tiny'));
 app.use(cors());
 
 app.use(express.static(__dirname + '/../client/dist'));
-var dbName = 'campaign',
-  username = 'root',
-  password = 'root',
-  host = 'postgres',
-  dbport = ':5432'
 
-var conStringPost = 'postgres://' + username + ':' + password + '@' + host + dbport + '/' + dbName;
+var conStringPost = 'postgres://' + dbConfig.username + ':' + dbConfig.password + '@' + dbConfig.host + '/' + dbConfig.dbName;
 
 // connect to postgres db
 const pool = new Pool({ connectionString: conStringPost })

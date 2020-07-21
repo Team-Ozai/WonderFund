@@ -1,47 +1,9 @@
-# version: "2"
-# services:
-#   app:
-#     container_name: campaign
-#     restart: always
-#     build: .
-#     ports:
-#       - "3003:3003"
-#     links:
-#       - postgres
-#   postgres:
-#     container_name: postgres
-#     image: postgres
-#     environment:
-#       POSTGRES_PASSWORD: root
-#       POSTGRES_USER: root
-#       POSTGRES_DB: campaign
-#     volumes:
-#       - ./pgdata:/var/lib/postgresql/data
-#     ports:
-#       - "5432:5432"
 version: "3.3"
 
 services:
-  # Postgres
-  postgres:
-    image: postgres
-    container_name: postgres
-    environment:
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_URL: postgres://root:root@localhost:5432/campaign
-      POSTGRES_DB: campaign
-      POSTGRES_HOST: postgres
-      PGDATA: /var/lib/postgresql/data/pgdata/subdata
-    ports:
-      - "5432:5432"
-    volumes:
-      - "./server/database:/var/lib/postgresql/data/pgdata"
-      # - "./server/database:/var/lib/postgresql/data/pgdataa
-
   # Backend API
   app:
-    container_name: campaign
+    container_name: campaignservice
     build: ./
     working_dir: /app
     # env_file:
@@ -49,14 +11,3 @@ services:
     ports:
       - "3003:3003"
     # command: ["/app/wait-for-postgres.sh", "postgres:5432", "--", "npm", "start"]
-    links:
-      - postgres
-    restart: always
-    environment:
-      SEQ_DB: postgres
-      SEQ_USER: root
-      SEQ_PW: root
-      PORT: 5432
-      DATABASE_URL: postgres://root:root@localhost:5432/campaign
-volumes:
-  data: {}
