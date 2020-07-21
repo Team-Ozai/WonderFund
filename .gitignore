@@ -24,4 +24,5 @@ coverage
 build/
 bundle.js
 
+subdata/
 *.csv

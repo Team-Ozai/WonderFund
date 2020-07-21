@@ -11,7 +11,7 @@ class RisksAndChallenges extends React.Component {
   render(){
     return(
       <div>
-        <TitleH3>Risks And Commitments</TitleH3>
+        <TitleH3>Risks And Challenges</TitleH3>
         <TitleH4>{this.props.data.title1}</TitleH4>
         <TextP>{this.props.data.text1}</TextP>
         <TextP>{this.props.data.text2}</TextP>
