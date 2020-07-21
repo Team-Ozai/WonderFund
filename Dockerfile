@@ -25,7 +25,7 @@ COPY ./ ./
 RUN npm install
 # RUN npm run pgdataGen
 RUN npm run webpack:build
-RUN npm run pgdbsetup
+# RUN npm run pgdbsetup
 # RUN git clone https://github.com/vishnubob/wait-for-it.git
 EXPOSE 3003
 
