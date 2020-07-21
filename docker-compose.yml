@@ -19,7 +19,7 @@
 #       - ./pgdata:/var/lib/postgresql/data
 #     ports:
 #       - "5432:5432"
-version: "3.8"
+version: "3.3"
 
 services:
   # Postgres
