@@ -35,7 +35,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - "data:/var/lib/postgresql/data/pgdata"
+      - "data:/var/lib/postgresql/data"
       # - "./server/database:/var/lib/postgresql/data/pgdata"
 
   # Backend API
