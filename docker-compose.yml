@@ -37,7 +37,7 @@ services:
       - "5432:5432"
     volumes:
       - "./server/database:/var/lib/postgresql/data/pgdata"
-      # - "./server/database:/var/lib/postgresql/data/pgdata"
+      # - "./server/database:/var/lib/postgresql/data/pgdataa
 
   # Backend API
   app:
