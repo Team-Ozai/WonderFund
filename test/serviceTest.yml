@@ -1,5 +1,5 @@
 config:
-  target: "http://localhost:3003"
+  target: "http://15.164.34.94:3003"
   phases:
     - duration: 60
       arrivalRate: 1
