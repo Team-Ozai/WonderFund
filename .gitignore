@@ -29,3 +29,5 @@ subdata/
 
 #db-configuration file
 db-config.json
+
+dump.rdb

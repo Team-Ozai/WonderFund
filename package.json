@@ -39,6 +39,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-test-renderer": "^16.13.1",
+    "redis": "^3.0.2",
     "sequelize": "^5.21.13",
     "styled-components": "^5.1.1",
     "webfontloader": "^1.6.28",
