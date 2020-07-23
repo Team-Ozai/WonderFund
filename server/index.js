@@ -1,14 +1,14 @@
 var newrelic = require('newrelic');
 const cluster = require('cluster');
-const redis = require('redis');
+// const redis = require('redis');
 const morgan = require('morgan');
 const path = require('path');
 const cors = require('cors');
 const { Pool, Client } = require('pg');
 const dbConfig = require('./config/db-config.json');
 const port = 3003
-const redisPort = 6379;
-const redisClient = redis.createClient(redisPort);
+// const redisPort = 6379;
+// const redisClient = redis.createClient(redisPort, 'redis');
 var conStringPost = 'postgres://' + dbConfig.username + ':' + dbConfig.password + '@' + dbConfig.host + '/' + dbConfig.dbName;
 
 // connect to postgres db
@@ -16,7 +16,7 @@ const pool = new Pool({ connectionString: conStringPost })
 
 if (cluster.isMaster) {
 
-  var cpuCount = require('os').cpus().length;
+  var cpuCount = 4
 
   for (var i = 0; i < cpuCount; i += 1) {
     cluster.fork();
@@ -40,60 +40,80 @@ if (cluster.isMaster) {
 
   app.use(express.static(__dirname + '/../client/dist'));
   app.use('/:id', express.static(__dirname + '/../client/dist'));
-
-
-  // // Get Requests
+  // Get Requests
   // app.get('/:id', (req, res) => {
   //   res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
   // });
 
   // Cache middleware
-  const cache = function (req, res, next) {
-    var redisKey = `${req.url.split('/')[2]}:${req.params.id}`
-    console.log(redisKey);
+  // const cache = function (req, res, next) {
+  //   var redisKey = `${req.url.split('/')[2]}:${req.params.id}`
+  //   console.log(redisKey);
 
-    redisClient.get(redisKey, (err, data) => {
-      if (err) throw err;
+  //   redisClient.get(redisKey, (err, data) => {
+  //     if (err) throw err;
 
-      if (data !== null) {
-        res.send(JSON.parse(data));
-      } else {
-        next();
-      }
-    });
-  }
+  //     if (data !== null) {
+  //       res.send(JSON.parse(data));
+  //     } else {
+  //       next();
+  //     }
+  //   });
+  // }
 
   // Get Requests
-  app.get('/api/story/:id', cache, function (req, res) {
+  app.get('/api/story/:id', function (req, res) {
     var value = req.params.id
-    var storyRedisKey = 'story:' + value;
     pool.query(`select * from "Story" where id= ${value}`, (err, data) => {
-      var result = data.rows[0]
-      redisClient.setex(storyRedisKey, 3600, JSON.stringify(result));
-      // console.log(data);
       res.send(data.rows[0]);
     })
   });
 
-  app.get('/api/risksandchallenges/:id', cache, function (req, res) {
+  app.get('/api/risksandchallenges/:id', function (req, res) {
     var value = req.params.id
-    var rncRedisKey = 'risksandchallenges:' + value;
     pool.query(`select * from "RisksAndChallenges" where id= ${value}`, (err, data) => {
-      var result = data.rows[0]
-      redisClient.setex(rncRedisKey, 3600, JSON.stringify(result));
       res.send(data.rows[0]);
     })
   });
 
-  app.get('/api/environmentalcommitments/:id', cache, function (req, res) {
+  app.get('/api/environmentalcommitments/:id', function (req, res) {
     var value = req.params.id;
-    var ecRedisKey = 'environmentalcommitments:' + value;
     pool.query(`select * from "EnvironmentalCommitments" where id= ${value}`, (err, data) => {
-      var result = data.rows[0]
-      redisClient.setex(ecRedisKey, 3600, JSON.stringify(result));
       res.send(data.rows[0]);
     })
   });
+
+  // // Get Requests
+  // app.get('/api/story/:id', cache, function (req, res) {
+  //   var value = req.params.id
+  //   var storyRedisKey = 'story:' + value;
+  //   pool.query(`select * from "Story" where id= ${value}`, (err, data) => {
+  //     var result = data.rows[0]
+  //     redisClient.setex(storyRedisKey, 3600, JSON.stringify(result));
+  //     // console.log(data);
+  //     res.send(data.rows[0]);
+  //   })
+  // });
+
+  // app.get('/api/risksandchallenges/:id', cache, function (req, res) {
+  //   var value = req.params.id
+  //   var rncRedisKey = 'risksandchallenges:' + value;
+  //   pool.query(`select * from "RisksAndChallenges" where id= ${value}`, (err, data) => {
+  //     var result = data.rows[0]
+  //     redisClient.setex(rncRedisKey, 3600, JSON.stringify(result));
+  //     res.send(data.rows[0]);
+  //   })
+  // });
+
+  // app.get('/api/environmentalcommitments/:id', cache, function (req, res) {
+  //   var value = req.params.id;
+  //   var ecRedisKey = 'environmentalcommitments:' + value;
+  //   pool.query(`select * from "EnvironmentalCommitments" where id= ${value}`, (err, data) => {
+  //     var result = data.rows[0]
+  //     redisClient.setex(ecRedisKey, 3600, JSON.stringify(result));
+  //     res.send(data.rows[0]);
+  //   })
+  // });
 
   // app.get('/api/story/', cache, function (req, res) {
   //   var storyRedisKey = 'story:1';
