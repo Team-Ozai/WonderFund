@@ -1,16 +1,12 @@
-const db = require('../model/database.js');
+// const db = require('../model/database.js');
 const { Pool, Client } = require('pg');
 
-var dbName = 'campaign',
-  username = 'root',
-  password = 'root',
-  host = 'postgres',
-  port = ':5432'
-
-var conStringPost = 'postgres://' + username + ':' + password + '@' + host + port + '/' + dbName;
+const dbConfig = require('../config/db-config.json');
+var conStringPost = 'postgres://' + dbConfig.username + ':' + dbConfig.password + '@' + dbConfig.host + '/' + dbConfig.dbName;
 
 // connect to postgres db
-const pool = new Pool({ connectionString: conStringPost })
+const client = new Pool({ connectionString: conStringPost })
+
 
 const getStoryFromID = async function (value) {
   const connect = await db.Connection();
