@@ -2,6 +2,7 @@ var newrelic = require('newrelic');
 const morgan = require('morgan');
 const path = require('path');
 const cors = require('cors');
+const compression = require('compression');
 const { Pool, Client } = require('pg');
 const port = 3003
 const dbConfig = require('./config/db-config.json');
@@ -13,7 +14,7 @@ const pool = new Pool({ connectionString: conStringPost })
 
 const express = require('express')
 const app = express()
-
+app.use(compression());
 app.use(express.json())
 app.use(morgan('tiny'));
 app.use(cors());
