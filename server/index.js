@@ -16,7 +16,7 @@ const pool = new Pool({ connectionString: conStringPost })
 
 if (cluster.isMaster) {
 
-  var cpuCount = 4
+  var cpuCount = require('os').cpus().length;
 
   for (var i = 0; i < cpuCount; i += 1) {
     cluster.fork();
@@ -37,7 +37,9 @@ if (cluster.isMaster) {
   app.use(express.json())
   app.use(morgan('tiny'));
   app.use(cors());
-
+  // app.get('/', (req, res) => {
+  //   res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+  // });
   app.use(express.static(__dirname + '/../client/dist'));
   app.use('/:id', express.static(__dirname + '/../client/dist'));
   // Get Requests
