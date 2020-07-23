@@ -22,7 +22,6 @@ app.use(cors());
 app.use(express.static(__dirname + '/../client/dist'));
 app.use('/:id', express.static(__dirname + '/../client/dist'));
 
-
 // Get Requests
 app.get('/api/story/:id', function (req, res) {
   var value = req.params.id
