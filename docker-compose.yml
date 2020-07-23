@@ -1,21 +1,21 @@
 version: "3.3"
 
 services:
-  # Backend API
-  redis:
-    image: "redis"
-    ports:
-      - "6379:6379"
-    expose:
-      - 6379
-    command: redis-server /usr/local/etc/redis/redis.conf
-    volumes:
-      - $PWD/redis-data:/var/lib/redis
-      - $PWD/redis.conf:/usr/local/etc/redis/redis.conf
-    environment:
-      - REDIS_REPLICATION_MODE=master
-    networks:
-      - redis
+  # # Backend API
+  # redis:
+  #   image: "redis"
+  #   ports:
+  #     - "6379:6379"
+  #   expose:
+  #     - 6379
+  #   command: redis-server /usr/local/etc/redis/redis.conf
+  #   volumes:
+  #     - $PWD/redis-data:/var/lib/redis
+  #     - $PWD/redis.conf:/usr/local/etc/redis/redis.conf
+  #   environment:
+  #     - REDIS_REPLICATION_MODE=master
+  #   networks:
+  #     - redis
   app:
     container_name: campaignservice
     build: ./
@@ -24,10 +24,10 @@ services:
     #   - ./server/config/.env
     ports:
       - "3003:3003"
-    links:
-      - redis
-    networks:
-      - redis
-#     # command: ["/app/wait-for-postgres.sh", "postgres:5432", "--", "npm", "start"]
-networks:
-  redis:
+#     links:
+#       - redis
+#     networks:
+#       - redis
+# #     # command: ["/app/wait-for-postgres.sh", "postgres:5432", "--", "npm", "start"]
+# networks:
+#   redis:
