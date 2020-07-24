@@ -5,7 +5,7 @@
   "author": "",
   "license": "",
   "scripts": {
-    "webpack:build": "webpack -d --watch",
+    "webpack:build": "webpack -d",
     "test": "jest",
     "start": "nodemon server/index.js",
     "pgdbsetup": "node server/model/database.js",
