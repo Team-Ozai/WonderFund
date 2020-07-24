@@ -22,6 +22,9 @@ app.use(cors());
 app.use(express.static(__dirname + '/../client/dist'));
 app.use('/:id', express.static(__dirname + '/../client/dist'));
 
+app.get('/loaderio-2f9012fc29809582743bad234735553f/', function (req, res) {
+  res.send('loaderio-2f9012fc29809582743bad234735553f');
+});
 // Get Requests
 app.get('/api/story/:id', function (req, res) {
   var value = req.params.id
