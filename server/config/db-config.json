@@ -1,0 +1,7 @@
+{
+  "dbName": "campaign",
+  "username": "root",
+  "password": "root",
+  "host": "13.209.179.203",
+  "dport": ":5432"
+}
