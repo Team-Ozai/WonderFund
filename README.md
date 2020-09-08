@@ -1,4 +1,4 @@
-# Project Name
+# WonderFund
 
 > Backend Project for Crowdfunding Application (campaign service)
 
@@ -50,3 +50,7 @@ From within the root directory:
 ```sh
 npm install
 ```
+
+## Demo
+### WonderFund Main
+![WonderFund Main](demo/WonderFund.gif)
